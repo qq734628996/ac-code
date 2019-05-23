@@ -1,0 +1,118 @@
+//#include <bits/stdc++.h>
+
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
+#include <cctype>
+#include <cmath>
+#include <ctime>
+#include <cassert>
+
+#include <iostream>
+#include <algorithm>
+//#include <unordered_map>
+//#include <unordered_set>
+#include <sstream>
+#include <utility>
+#include <string>
+#include <vector>
+#include <list>
+#include <stack>
+#include <queue>
+#include <set>
+#include <map>
+using namespace std;
+
+#define REP(i,n) for(int i = 0; i < n; i++)
+#define PER(i,n) for(int i = n-1; i >= 0; i--)
+#define FOR(i,l,r) for(int i = l; i <= r; i++)
+#define ROF(i,l,r) for(int i = r; i >= l; i--)
+#define DEBUG(x) cout << #x << "=" << x << endl;
+#define SHOW1(A,n) { REP(i,n-1) printf("%d ", A[i]); printf("%d\n", A[n-1]); }
+#define SHOW2(A,m,n) { REP(i,m) { REP(j,n-1) printf("%d ", A[i][j]); printf("%d\n", A[i][n-1]); } }
+#define pb push_back
+#define fi first
+#define se second
+#define ALL(x) x.begin(),x.end()
+#define SZ(x) (int)((x).size())
+typedef long long LL;
+typedef pair<int, int> pii;
+const int MAXN = 2e2+5, MAXM = 5e3+5, INF = 0x3f3f3f3f, MOD = 10007;
+
+int n,m,g[MAXN][MAXN],tot,a[MAXN],d[MAXN][MAXN],vis[MAXN][MAXN];
+int dp(int i, int j)
+{
+    int cost=(j!=a[i]);
+    if (i==1) return cost;
+    if (vis[i][j]) return d[i][j];
+    vis[i][j]=1;
+    d[i][j]=INF;
+    FOR(k,1,n) if (g[j][k]) d[i][j]=min(d[i][j], dp(i-1,k));
+    d[i][j]+=cost;
+    return d[i][j];
+}
+
+int main()
+{
+#ifdef LOCAL
+    freopen("i.txt", "r", stdin);
+    //freopen("o.txt", "w", stdout);
+#endif //LOCAL
+
+    int T; scanf("%d", &T);
+    while (T--) {
+        scanf("%d%d", &n,&m);
+        memset(g,0,sizeof(g));
+        FOR(i,1,n) g[i][i]=1;
+        FOR(i,1,m) {
+            int x,y; scanf("%d%d", &x,&y);
+            g[x][y]=g[y][x]=1;
+        }
+        scanf("%d", &tot);
+        FOR(i,1,tot) scanf("%d", &a[i]);
+        memset(vis,0,sizeof(vis));
+        int ans=INF;
+        FOR(i,1,n) ans=min(ans, dp(tot,i));
+        printf("%d\n", ans);
+    }
+
+    return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
